@@ -16,7 +16,9 @@ Object.defineProperty(person, "updateInfo", {
     for (let key in newInfo) {
       if (this.hasOwnProperty(key)) {
         if (!Object.getOwnPropertyDescriptor(this, key).writable) {
-          throw new Error(`${key} is read-only and cannot be updated.`);
+          Object.defineProperty(this, key, {
+            value: newInfo[key],
+          });
         } else {
           this[key] = newInfo[key];
         }
